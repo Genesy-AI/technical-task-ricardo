@@ -197,6 +197,8 @@ A partir de ahí me dieron seis tareas: dos bugs, dos features, un PR y un anál
 
 ## Qué decidí hacer y por qué
 
+No había KPIs ni ninguna métrica para decidir por dónde empezar, así que seguí mi propio criterio de priorización:
+
 **Bug 1 — importación incorrecta de datos** ([PR #4](https://github.com/Genesy-AI/technical-task-ricardo/pull/4)). Decidí atacarlo primero porque, si se generan datos mal y quedan mal en base de datos, acabas teniendo que hacer una limpieza. Es un bug que se extiende: puedes meter clientes, mandatos y datos incorrectos. Lo hice para ahorrar problemas futuros.
 
 **Bug 2 — falta de feedback al usuario en una validación** ([PR #3](https://github.com/Genesy-AI/technical-task-ricardo/pull/3)). Lo detecté justo mientras revisaba el código y decidí atacarlo porque me pareció fácil.
