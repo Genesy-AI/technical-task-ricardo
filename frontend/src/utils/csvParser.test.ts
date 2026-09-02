@@ -211,6 +211,45 @@ Jane,Johnson,jane@example.com`
     expect(result[2].isValid).toBe(true)
   })
 
+  it('should mark leads with invalid country codes as invalid', () => {
+    const csv = `firstName,lastName,email,countryCode
+John,Doe,john@example.com,XXX
+Jane,Smith,jane@example.com,12
+Bob,Johnson,bob@example.com,ES`
+
+    const result = parseCsv(csv)
+
+    expect(result).toHaveLength(3)
+    expect(result[0].isValid).toBe(false)
+    expect(result[0].errors).toContain('Invalid country code: XXX')
+    expect(result[1].isValid).toBe(false)
+    expect(result[1].errors).toContain('Invalid country code: 12')
+    expect(result[2].isValid).toBe(true)
+    expect(result[2].errors).toEqual([])
+  })
+
+  it('should normalize lowercase country codes to uppercase', () => {
+    const csv = `firstName,lastName,email,countryCode
+John,Doe,john@example.com,es`
+
+    const result = parseCsv(csv)
+
+    expect(result).toHaveLength(1)
+    expect(result[0].isValid).toBe(true)
+    expect(result[0].countryCode).toBe('ES')
+  })
+
+  it('should keep leads without country code valid', () => {
+    const csv = `firstName,lastName,email,countryCode
+John,Doe,john@example.com,`
+
+    const result = parseCsv(csv)
+
+    expect(result).toHaveLength(1)
+    expect(result[0].isValid).toBe(true)
+    expect(result[0].countryCode).toBeUndefined()
+  })
+
   it('should handle whitespace in fields', () => {
     const csv = `firstName,lastName,email
  John , Doe , john@example.com `
